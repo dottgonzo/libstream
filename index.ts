@@ -10,9 +10,9 @@ export = function codeStream(data: {
 }) {
 
     if (!data) {
-        throw Error("no data");
+        throw "no data";
     } else if (!data.channel) {
-        throw Error("no channel");
+        throw "no channel";
     } else {
         if (data.host) {
             data.port = parseInt(data.host.split(":")[0]);
@@ -20,7 +20,7 @@ export = function codeStream(data: {
         } else if (data.hostname && data.port) {
             data.host = data.hostname + ":" + data.port;
         } else {
-            throw Error("no host data");
+            throw "no host data";
         }
     }
 
