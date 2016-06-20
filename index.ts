@@ -1,4 +1,4 @@
-export = function (data: {
+export = function codeStream(data: {
     format?: string;
     width?: number;
     height?: number;
