@@ -9,18 +9,23 @@ export = function (data: {
     img?: string;
 }) {
 
+    if (!data) {
+        throw Error("no data");
+    } else if (!data.channel) {
+        throw Error("no channel");
+    } else {
+        if (data.host) {
+            data.port = parseInt(data.host.split(":")[0]);
+            data.hostname = data.host.split(":")[1];
+        } else if (data.hostname && data.port) {
+            data.host = data.hostname + ":" + data.port;
+        } else {
+            throw Error("no host data");
+        }
+    }
+
     let code;
 
-    if (data.host) {
-        data.port = parseInt(data.host.split(":")[0]);
-        data.hostname = data.host.split(":")[1]
-
-    } else if (data.hostname && data.port) {
-        data.host = data.hostname + ":" + data.port;
-    } else {
-        throw Error("no host data");
-    }
-    
     if (!data.format) data.format = "desktop";
 
     switch (data.format) {
