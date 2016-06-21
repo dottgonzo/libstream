@@ -27,7 +27,7 @@ export = function codeStream(data: {
 
         case "mobile":
 
-            if (!data.http_port) throw "no http port";
+            if (!data.http_port) data.http_port = 80;
 
             if (!data.http_hostname && data.hostname) data.http_hostname = data.hostname;
 
@@ -47,7 +47,7 @@ export = function codeStream(data: {
 
         default:
 
-            if (!data.rtmp_port) throw "no rtmp port";
+            if (!data.rtmp_port) data.rtmp_port = 1935;
 
             if (!data.rtmp_hostname && data.hostname) data.rtmp_hostname = data.hostname;
 
