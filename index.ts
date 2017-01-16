@@ -1,5 +1,6 @@
-export function codeStream(data: {
-    format?: string;
+
+export interface IcodeStream {
+       format?: string;
     width?: number;
     height?: number;
     hostname?: string;
@@ -9,7 +10,11 @@ export function codeStream(data: {
     rtmp_port?: number;
     rtmp_hostname?: string;
     http_hostname?: string;
-}) {
+    protocol?:string; 
+}
+
+
+export function codeStream(data: IcodeStream) {
 
     if (!data) {
         throw "no data";
@@ -26,6 +31,8 @@ export function codeStream(data: {
     switch (data.format) {
 
         case "mobile":
+
+            if (!data.protocol) data.protocol = "http";
 
             if (!data.http_port) data.http_port = 80;
 
