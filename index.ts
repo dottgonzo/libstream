@@ -46,7 +46,7 @@ export function codeStream(data: IcodeStream) {
             } else if(!data.height){
                 data.height = (1080*data.width)/1920;
             }
-            
+
             if (!data.img) {
                 data.img = 'https://lh6.ggpht.com/NrQdFAdPSI9-hreB4C7HNhj3yXRiW1jqOOi7eFyakIx_IA-Im0huIeYCs5jTidMT2qA=w300';
             }
@@ -61,10 +61,13 @@ export function codeStream(data: IcodeStream) {
 
             if (!data.rtmp_hostname && data.hostname) data.rtmp_hostname = data.hostname;
 
-            if (!data.width || !data.height) {
+            if (!data.width ) {
 
                 data.width = 862;
                 data.height = 465;
+
+            } else if(!data.height){
+                data.height = (1080*data.width)/1920;
             }
 
             code = '<object width="' + data.width + '" height="' + data.height + '"> <param name="movie" value="https://play.kernel.online/lib/StrobeMediaPlayback.swf"></param><param name="flashvars" value="src=rtmp%3A%2F%2F' + data.rtmp_hostname + '%3A' + data.rtmp_port + '%2Flive%2F' + data.channel + '&streamType=live&scaleMode=zoom"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><param name="wmode" value="direct"></param><embed src="https://play.kernel.online/lib/StrobeMediaPlayback.swf" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" wmode="direct" width="' + data.width + '" height="' + data.height + '" flashvars="src=rtmp%3A%2F%2F' + data.rtmp_hostname + '%3A' + data.rtmp_port + '%2Flive%2F' + data.channel + '&streamType=live&scaleMode=zoom"></embed></object>'
