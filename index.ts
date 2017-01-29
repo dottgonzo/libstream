@@ -1,6 +1,6 @@
 
 export interface IcodeStream {
-       format?: string;
+    format?: string;
     width?: number;
     height?: number;
     hostname?: string;
@@ -10,7 +10,7 @@ export interface IcodeStream {
     rtmp_port?: number;
     rtmp_hostname?: string;
     http_hostname?: string;
-    protocol?:string; 
+    protocol?: string;
 }
 
 
@@ -42,11 +42,11 @@ export function codeStream(data: IcodeStream) {
 
                 data.width = 862;
                 data.height = 465;
-                if (!data.img) {
-                    data.img = 'https://lh6.ggpht.com/NrQdFAdPSI9-hreB4C7HNhj3yXRiW1jqOOi7eFyakIx_IA-Im0huIeYCs5jTidMT2qA=w300';
-                }
-            }
 
+            }
+            if (!data.img) {
+                data.img = 'https://lh6.ggpht.com/NrQdFAdPSI9-hreB4C7HNhj3yXRiW1jqOOi7eFyakIx_IA-Im0huIeYCs5jTidMT2qA=w300';
+            }
             code = '<div style="width:' + data.width + ';height:' + data.height + ';text-align:center;"><a href="http://' + data.http_hostname + ":" + data.http_port + '/hls/' + data.channel + '.m3u8"><img src="' + data.img + '"></a></div>';
 
             break;
@@ -62,11 +62,9 @@ export function codeStream(data: IcodeStream) {
 
                 data.width = 862;
                 data.height = 465;
-
-                code = '<object width="' + data.width + '" height="' + data.height + '"> <param name="movie" value="https://play.kernel.online/lib/StrobeMediaPlayback.swf"></param><param name="flashvars" value="src=rtmp%3A%2F%2F' + data.rtmp_hostname + '%3A' + data.rtmp_port + '%2Flive%2F' + data.channel + '&streamType=live&scaleMode=zoom"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><param name="wmode" value="direct"></param><embed src="https://play.kernel.online/lib/StrobeMediaPlayback.swf" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" wmode="direct" width="' + data.width + '" height="' + data.height + '" flashvars="src=rtmp%3A%2F%2F' + data.rtmp_hostname + '%3A' + data.rtmp_port + '%2Flive%2F' + data.channel + '&streamType=live&scaleMode=zoom"></embed></object>'
-
             }
 
+            code = '<object width="' + data.width + '" height="' + data.height + '"> <param name="movie" value="https://play.kernel.online/lib/StrobeMediaPlayback.swf"></param><param name="flashvars" value="src=rtmp%3A%2F%2F' + data.rtmp_hostname + '%3A' + data.rtmp_port + '%2Flive%2F' + data.channel + '&streamType=live&scaleMode=zoom"></param><param name="allowFullScreen" value="true"></param><param name="allowscriptaccess" value="always"></param><param name="wmode" value="direct"></param><embed src="https://play.kernel.online/lib/StrobeMediaPlayback.swf" type="application/x-shockwave-flash" allowscriptaccess="always" allowfullscreen="true" wmode="direct" width="' + data.width + '" height="' + data.height + '" flashvars="src=rtmp%3A%2F%2F' + data.rtmp_hostname + '%3A' + data.rtmp_port + '%2Flive%2F' + data.channel + '&streamType=live&scaleMode=zoom"></embed></object>'
 
 
             break;
