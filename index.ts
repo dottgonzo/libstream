@@ -50,7 +50,7 @@ export function codeStream(data: IcodeStream) {
             if (!data.img) {
                 data.img = 'https://lh6.ggpht.com/NrQdFAdPSI9-hreB4C7HNhj3yXRiW1jqOOi7eFyakIx_IA-Im0huIeYCs5jTidMT2qA=w300';
             }
-            code = '<div style="width:' + data.width + ';height:' + data.height + ';text-align:center;"><a href="http://' + data.http_hostname + ":" + data.http_port + '/hls/' + data.channel + '.m3u8"><img style="max-width:150px" src="' + data.img + '"></a></div>';
+            code = '<div style="width:' + data.width + ';height:' + data.height + ';text-align:center;"><a href="http://' + data.http_hostname + ":" + data.http_port + '/hls/' + data.channel + '.m3u8"><img style="max-width:120px" src="' + data.img + '"></a></div>';
 
             break;
 
