@@ -38,12 +38,15 @@ export function codeStream(data: IcodeStream) {
 
             if (!data.http_hostname && data.hostname) data.http_hostname = data.hostname;
 
-            if (!data.width || !data.height) {
+            if (!data.width ) {
 
                 data.width = 862;
                 data.height = 465;
 
+            } else if(!data.height){
+                data.height = (1080*data.width)/1920;
             }
+            
             if (!data.img) {
                 data.img = 'https://lh6.ggpht.com/NrQdFAdPSI9-hreB4C7HNhj3yXRiW1jqOOi7eFyakIx_IA-Im0huIeYCs5jTidMT2qA=w300';
             }
