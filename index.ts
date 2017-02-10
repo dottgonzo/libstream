@@ -19,6 +19,7 @@ export interface IcodeStream {
     flashplayer?: string
     app?: string
     hlsapp?: string
+    autoplay?:true //todo
 }
 
 
