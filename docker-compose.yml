@@ -1,0 +1,32 @@
+version: '2'
+
+
+networks:
+ proxy-tier:
+  external:
+   name: nginx-proxy
+ 
+
+services:
+
+  player:
+    image: registry.kernel.online:5000/html5player
+    restart: always
+    environment:
+    - VIRTUAL_HOST=player.ipstream.online
+    - VIRTUAL_PORT=13454
+    - VIRTUAL_NETWORK=proxy-tier
+    - LETSENCRYPT_HOST=player.ipstream.online
+    - LETSENCRYPT_EMAIL=darioyzf@gmail.com
+
+    - SERVERPORT=13454
+    - SERVERHOST=https://player.ipstream.online
+    - STREAMER_HTTP_PROTOCOL=https
+    - STREAMERHOST=demo.ipstream.online
+
+
+    ports:
+    - 13454:13454
+    networks:
+    - proxy-tier
+
