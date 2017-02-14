@@ -1,10 +1,12 @@
 import * as express from "express"
+const device = require('express-device');
 
 
 import { htmlpage } from "./index"
 
 
 const app = express();
+app.use(device.capture());
 
 app.use('/', htmlpage);
 

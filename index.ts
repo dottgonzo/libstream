@@ -19,7 +19,7 @@ export interface IcodeStream {
     flashplayer?: string
     app?: string
     hlsapp?: string
-    autoplay?:true //todo
+    autoplay?: true //todo
 }
 
 
@@ -43,7 +43,8 @@ export function codeStream(data: IcodeStream) {
 
     let code;
 
-    if (!data.format) data.format = "desktop";
+    if (!data.format) data.format = "mobile";
+    if (data.format.toUpperCase() === 'DESKTOP') data.format = "desktop";
 
 
 
@@ -60,32 +61,7 @@ export function codeStream(data: IcodeStream) {
 
     switch (data.format) {
 
-        case "mobile":
-
-            if (!data.protocol) data.protocol = "http";
-
-            if (!data.http_port) data.http_port = 80;
-
-
-            if (!data.img) {
-                data.img = 'https://lh6.ggpht.com/NrQdFAdPSI9-hreB4C7HNhj3yXRiW1jqOOi7eFyakIx_IA-Im0huIeYCs5jTidMT2qA=w300';
-            }
-
-            if (!data.isTime || data.isTime === "now") {
-                code = '<div style="width:' + data.width + ';height:' + data.height + ';text-align:center;"><a href="http://' + data.hostname + ":" + data.http_port + '/' + hlsapp + '/' + data.channel + '.m3u8"><img style="max-width:120px" src="' + data.img + '"></a></div>';
-
-            } else if (data.isTime === "past") {
-                code = '<div style="width:' + data.width + ';height:' + data.height + ';text-align:center;"><a href="http://' + data.hostname + ":" + data.http_port + '/' + hlsapp + '/' + data.channel + '.m3u8"><img style="max-width:120px" src="' + data.img + '"></a></div>';
-            } else if (data.isTime === "future") {
-                code = '<div style="width:' + data.width + ';height:' + data.height + ';text-align:center;"><a href="http://' + data.hostname + ":" + data.http_port + '/' + hlsapp + '/' + data.channel + '.m3u8"><img style="max-width:120px" src="' + data.img + '"></a></div>';
-
-            }
-
-
-            break;
-
-
-        default:
+        case "desktop":
 
             if (!data.rtmp_port) data.rtmp_port = 1935;
 
@@ -103,6 +79,31 @@ export function codeStream(data: IcodeStream) {
 
             }
 
+            break;
+
+
+        default:
+
+
+
+            if (!data.protocol) data.protocol = "http";
+
+            if (!data.http_port) data.http_port = 80;
+
+
+            if (!data.img) {
+                data.img = 'https://lh6.ggpht.com/NrQdFAdPSI9-hreB4C7HNhj3yXRiW1jqOOi7eFyakIx_IA-Im0huIeYCs5jTidMT2qA=w300';
+            }
+
+            if (!data.isTime || data.isTime === "now") {
+                code = '<div style="width:' + data.width + 'px;height:' + data.height + 'px;text-align:center;"><a style="background-color: whitesmoke;width:' + data.width + 'px;height:' + data.height + 'px;display:block;" href="http://' + data.hostname + ":" + data.http_port + '/' + hlsapp + '/' + data.channel + '.m3u8"><img style="max-width:120px;margin-top:'+((data.height-120)/2)+'px" src="' + data.img + '"></a></div>';
+
+            } else if (data.isTime === "past") {
+                code = '<div style="width:' + data.width + 'px;height:' + data.height + 'px;text-align:center;"><a style="background-color: whitesmoke;width:' + data.width + 'px;height:' + data.height + 'px;display:block;" href="http://' + data.hostname + ":" + data.http_port + '/' + hlsapp + '/' + data.channel + '.m3u8"><img style="max-width:120px;margin-top:'+((data.height-120)/2)+'px" src="' + data.img + '"></a></div>';
+            } else if (data.isTime === "future") {
+                code = '<div style="width:' + data.width + 'px;height:' + data.height + 'px;text-align:center;"><a style="background-color: whitesmoke;width:' + data.width + 'px;height:' + data.height + 'px;display:block;" href="http://' + data.hostname + ":" + data.http_port + '/' + hlsapp + '/' + data.channel + '.m3u8"><img style="max-width:120px;margin-top:'+((data.height-120)/2)+'px" src="' + data.img + '"></a></div>';
+
+            }
 
 
 
@@ -138,9 +139,17 @@ router.get('/flashplayer', function (req, res) {
 // define the home page route
 router.get('/', function (req, res) {
 
+    console.log("Hi to " + req.device.type + " User");
+
+
 
 
     if (req.query.channel) {
+
+
+        if (req.device && req.device.type&& !req.query.format) {
+            req.query.format = req.device.type
+        }
 
         if (!req.query.flashplayer && process.env.SERVERHOST) {
 
